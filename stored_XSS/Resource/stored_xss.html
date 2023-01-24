@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stored_XSS</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="stored-xss">Stored XSS</h1>
+<p>Une <strong>Stored XSS</strong> est une injection qui va être stockée en BDD. Si l’utilisateur d’un blog peut poster a l’aide d’un formulaire vulnérable, l’injection se retrouvera en BDD et tous les utilisateurs qui consulteront le post exécuteront l’injection.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Se rendre sur la page <strong>Leave a feedback</strong> (bas de la homepage)</li>
+<li>C’est le titre du post qui est vulnérable donc si on met <code>&lt;script&gt;alert(123)&lt;/script&gt;</code> en titre de post et qu’on envoie le formulaire l’injection est stockée et le flag nous est donné</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>L’attaquant peut exécuter son code sur beaucoup de victimes potentielles</li>
+<li>Mêmes risques que les autres XSS</li>
+<li>La grosse différence avec les autres XSS est qu’ici c’est l’application qui délivre directement l’injection aux victimes. Sur les autres, c’est l’attaquant qui doit rediriger les victimes sur le site visé en leur donnant en plus le payload</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Renforcer les validations et les encodages des inputs utilisateurs (y compris les paramètres d’URL)</li>
+<li>Avant d’insérer des données entrée par l’utilisateur dans l’HTML, effectuer un parsing pour supprimer tout JS ou HTML</li>
+<li>Utiliser les bonnes pratiques de développement (innerText plutôt qu’innerHtml pour entrer du texte utilisateur…)</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = **0FBB54BBF7D099713CA4BE297E1BC7DA0173D8B3C21C1811B916A3A86652724E**
+</code></pre>
+</div>
+</body>
+
+</html>

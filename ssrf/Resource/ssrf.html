@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ssrf</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="server-side-request-forgery-ssrf">Server side request forgery (SSRF)</h1>
+<p>La faille de SSRF permet a un attaquant de forcer le serveur a faire des requêtes a des endroits interdits en interne.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>On remarque que depuis le début le site navigue avec une paramètre d’url <code>?page=</code></li>
+<li>Nous tentons donc de nous en servir pour accéder a un fichier sensible</li>
+<li>"<a href="http://127.0.0.1:1234/?page=../../../../../../../etc/passwd">http://127.0.0.1:1234/?page=../../../../../../../etc/passwd</a> nous donne le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>L’attaquant peut avoir accès a des fichiers sensibles stockés sur le serveur</li>
+<li>Dans le pire des cas cela peut permettre a l’attaquant d’exécuter des commandes sur le serveur (s’il détourne des informations)</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Faire une whitelist d’adresses auxquelles l’application peut accéder</li>
+<li>Imposer un schéma d’URL (pas de file:/// ou de choses du genre)</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = b12c4b2cb8094750ae121a676269aa9e2872d07c06e429d25a63196ec1c8c1d0
+</code></pre>
+<p><a href="https://brightsec.com/blog/ssrf-server-side-request-forgery/">ssrf examples</a></p>
+</div>
+</body>
+
+</html>

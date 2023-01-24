@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dom_xss</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="dom-xss">DOM XSS</h1>
+<p>XSS signifie <strong>Cross-site scripting</strong>. Cette faille permet a un attaquant d’injecter du code malveillant qui sera ensuite exécuté par les victimes. Il existes plusieurs types de XSS mais celle qui nous intéresse ici est l’attaque XSS basée de le DOM.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Cliquer sur la dernière image de la NSA sur la homepage pour arriver sur la page media</li>
+<li>On remarque un paramètre d’url <strong>src</strong> qui semble permettre de charger des document grâce à la balise <strong>Object</strong></li>
+<li>Après avoir réussi a charger des photos avec une modification de l’attribut src, nous essayons de lui donner un script</li>
+<li>Donner une simple balise script au param. src ne fonctionne pas, il faut l’encoder en base64 pour que le script passe les vérifications</li>
+<li>?src=&lt;data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4= permet de déclencher la XSS</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Potentiel accès a tous les cookies, tokens de sessions…</li>
+<li>Réécriture du contenu HTML</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Renforcer les validations et les encodages des inputs utilisateurs (y compris les paramètres d’URL)</li>
+<li>Avant d’insérer des données entrée par l’utilisateur dans l’HTML, effectuer un parsing pour supprimer tout JS ou HTML</li>
+<li>Utiliser les bonnes pratiques de développement (innerText plutôt qu’innerHtml pour entrer du texte utilisateur…)</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = 928D819FC19405AE09921A2B71227BD9ABA106F9D2D37AC412E9E5A750F1506D
+</code></pre>
+<p><a href="https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html">XSS attack via encoded url</a><br>
+<a href="https://cheatsheetseries.owasp.org/cheatsheets/DOM_based_XSS_Prevention_Cheat_Sheet.html">Fixes</a></p>
+</div>
+</body>
+
+</html>

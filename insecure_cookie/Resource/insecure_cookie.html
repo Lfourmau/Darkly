@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>insecure_cookie</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="insecure-cookie">Insecure cookie</h1>
+<p>Les cookies permettent de contenir et stocker dans le navigateur des informations liées à l’utilisateur. Parfois, les cookies sont utilisés dans la logique de l’application pour définir des permissions ou autres autorisations. S’il ne sont pas sécurisés, n’importe quel utilisateur peut les modifier comme il veut pour avoir de nouveaux privilèges.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>En inspectant le stockage de l’app dans le navigateur, on remarque un cookie <strong>I_am_admin</strong></li>
+<li>Lorsque l’on rentre sa valeur sur Crackstation nous pouvons constater que c’est un code hashé en MD5 facilement décodable</li>
+<li>Étant donné que le résultat du décodage est <strong>false</strong>, nous encodons la string <strong>true</strong> en MD5 puis nous remplaçons notre ancien cookie par le nouveau pour avoir le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>L’utilisateur peut avoir accès a des parties de l’application qui lui sont interdites</li>
+<li>Injections de codes</li>
+<li>Décodage d’information sensibles appartenant à d’autre utilisateurs</li>
+<li>Décodage du cookie pour en créer un nouveau différent</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Adopter un encodage adapté (le base64 est décodable par tout le monde)</li>
+<li>Intégrer les flags <strong>HttpOnly</strong> et <strong>Secure</strong>, <strong>SameSite</strong> a la création du cookie dans l’application</li>
+<li>Le flag <strong>HttpOnly</strong> permet au cookie de ne pas être touché par des scripts client-side</li>
+<li><strong>Secure</strong> permet de ne faire transiter les cookies qu’a travers du HTTPS (limite les man-in-the-middle)</li>
+<li><strong>SameSite</strong> permet de n’autoriser l’envoi du cookie qu’a des requêtes du même domaine</li>
+<li>Ne pas y stocker d’information ultra sensibles</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = df2eb4ba34ed059a1e3e89ff4dfc13445f104a1a52295214def1c4fb1693a5c3
+</code></pre>
+<p><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/06-Session_Management_Testing/02-Testing_for_Cookies_Attributes">Cookies Owasp</a><br>
+<a href="https://www.thehacker.recipes/web/inputs/insecure-cookies">Cookies</a></p>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>security_misconfiguration</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="security-misconfiguration">Security Misconfiguration</h1>
+<p>On parle de <strong>Security misconfiguration</strong> quand un site utilise des identifiants par défaut (admin/admin par exemple), un mauvais chiffrement des mots de passe ou quand le serveur est mal configuré et donne accès a des éléments sensibles. Cette faille est surtout provoqué l’erreur des développeur et leur manque de connaissance à ce sujet.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Le site comporte un dossier /whatever/ accessible</li>
+<li>Lorsque l’on se rend dessus, on peut télécharger le fichier Htpasswd</li>
+<li>Le fichier contient <strong>root:437394baff5aa33daa618be47b75cb49</strong>. La deuxieme partie est un hash md5 étant égal à <strong>qwerty123@</strong>. Il s’agit donc d’un mot de passe faible.</li>
+<li>Une page /admin est cachée sur le site, et il suffit de s’y connecter avec root / qwerty123@ pour obtenir le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Évidemment, une faille de configuration comme celle ci peut mener a des fuite de données importantes</li>
+<li>Possibilité pour un attaquant de gagner en privilèges (comme c’est le cas ici)</li>
+<li>Exposition de données sensibles</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Souvent mettre a jour les technos utilisées</li>
+<li>Adopter les bonnes pratiques de développement</li>
+<li>Former en interne sur les conséquences de ces erreurs</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = d19b4823e0d5600ceed56d5e896ef328d7a2b9e7ac7e80f4fcdb9b10bcb3e7ff
+</code></pre>
+</div>
+</body>
+
+</html>

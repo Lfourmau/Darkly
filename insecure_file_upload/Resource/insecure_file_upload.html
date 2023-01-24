@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>insecure_file_upload</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="insecure-file-upload">Insecure file upload</h1>
+<p>Les inputs permettant d’upload un fichier sont très vulnérables. S’ils ne sont pas protégés, ils peuvent permettre à un utilisateur d’upload des formats non désirés, des fichiers trop lourds, des bouts de codes, et bien d’autre éléments hostiles au site.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Direction la page d’upload de fichier</li>
+<li>Nous remarquons que le seul format accepté est le jpg</li>
+<li>Lorsque l’on renomme un fichier .c en .jpg, il est aussi uploadé. Cependant pas de flag.</li>
+<li>Pour obtenir le flag, il nous faut upload un fichier js par exemple. Après avoir intercepté la requête, nous modifions le Content-Type du fichier upload pour lui donner la valeur image/jpeg au lieu de text/javascript</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Si l’attaquant connait les technologies utilisées sur le serveur, il peut upload un reverse shell et ainsi gagner l’accès au serveur</li>
+<li>Le serveur peut crash si le fichier est trop gros</li>
+<li>L’attaquant peut réécrire des fichiers déjà existant sur le serveur en leur uploadant un fichier du même nom.</li>
+<li>Des fichiers tels que les Svg peuvent contenir du code malveillant (XSS notamment)</li>
+<li>Un upload de fichier malveillant peut permettre d’exploiter des failles connues dans certaines librairies</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Renommer les fichiers uploadés aléatoirement</li>
+<li>Ne jamais dire a l’utilisateur où le fichier est stocké</li>
+<li>Vérifier l’extension du fichier uploadé</li>
+<li>Vérifier le MIME type du fichier uploadé</li>
+<li>Vérifier les magic numbers du fichier uploadé</li>
+<li>Limiter la taille (et bien entendu faire le check dans le back aussi)</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = 46910D9CE35B385885A9F7E2B336249D622F29B267A1771FBACF52133BEDDBA8
+</code></pre>
+</div>
+</body>
+
+</html>

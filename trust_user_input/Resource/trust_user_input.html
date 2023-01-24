@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>trust_user_inpur</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="trust-user-input">Trust user input</h1>
+<p>Dans presque toutes les applications aujourd’hui, l’utilisateur est amené a interagir avec le site, et a envoyer des données au back. Si le développeur fait confiance aux inputs de l’utilisateur, ce dernier peut envoyer des données erronées au back sans problème.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>On se rend sur la page <strong>Survey</strong></li>
+<li>Inspecter l’élément sur l’un des inputs de vote</li>
+<li>On remarque que l’on peut modifier la value du vote. On passe donc d’un chiffre entre 1 et 10 a 9999</li>
+<li>On vote pour obtenir le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>L’utilisateur peut effectuer des actions interdites (donner une note de 999, par exemple)</li>
+<li>Certains utilisateurs pourraient avoir accès a des informations qui ne leur sont pas destinées. Par exemple si l’utilisateur demande les infos d’un autre utilisateur et qu’aucune vérification n’est faite pour vérifier son identité, il a accès a tous les utilisateurs.</li>
+<li>Dans le pire des cas, le serveur pourrait crasher si l’utilisateur envoie une donnée qui n’est pas du tout celle attendue</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Ajouter des vérifications coté Back-end pour ne pas faire confiance a l’utilisateur et confirmer que l’input correspond aux règles définies</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = 03A944B434D5BAFF05F46C4BEDE5792551A2595574BCAFC9A6E25F67C382CCAA
+</code></pre>
+</div>
+</body>
+
+</html>

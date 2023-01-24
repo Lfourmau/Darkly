@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sensitive_data_exposure</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="sensitive-data-exposure">Sensitive data exposure</h1>
+<p>Cette faille rejoint la <strong>security misconfiguration</strong> de tout à l’heure, mais ici on ne fait que consulter de la donnée sensible accessible au public.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Il y a un dossier /.hidden/ qui contient un tas de fichiers qui eux mêmes contiennent des tas de fichiers.</li>
+<li>Le flag est caché dans l’un de ces fichiers, il faut donc tous les télécharger pour pouvoir traiter l’information</li>
+<li>Lorsque l’on essaye de télécharger avec wget, on obtient juste le robots.txt, il faut donc taper <code>wget -e robots=off -r -np http://127.0.0.1:123/.hidden</code></li>
+<li>Ensuite <strong>grep -r “flag” .</strong> (a la racine)  permet de retrouver le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Un attaquant peut intercepter des requêtes et lire des informations affichée en clair (mdp, usernames, infos bancaires…)</li>
+<li>N’importe qui peut lire des documents confidentiels</li>
+<li>Des éléments privés comme des clés API ou autres peuvent être exposés</li>
+<li>Broken access control</li>
+<li>Phishing (un attaquant peut voler le mail d’un administrateur du site par exemple)</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Tenir des catalogues de données : Savoir quelles données sont accessibles depuis quel endroit et par qui</li>
+<li>Chiffrer toutes les données avec des algos de chiffrement</li>
+<li>Certains fournisseurs cloud proposent aussi des solutions pour limiter ça</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = d5eec3ec36cf80dce44a896f961c1831a05526ec215693c8f2c39543497d4466
+</code></pre>
+<p><a href="https://medium.com/analytics-vidhya/how-to-prevent-sensitive-data-exposure-owasp-top-10-fd05550e0ac2">Sensitive data exposure</a></p>
+</div>
+</body>
+
+</html>

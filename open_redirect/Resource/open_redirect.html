@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>open_redirect</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="open-redirect">Open redirect</h1>
+<p>On trouve des failles d’<strong>open redirect</strong> lorsque l’application utilise des données potentiellement modifiable par l’utilisateur pour gérer les redirections.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>En cliquant sur les icônes de réseaux sociaux en bas de homepage, nous remarquons que la redirection se fait via un paramètre d’URL <strong>redirect</strong>.</li>
+<li>Si l’on crée notre url avec un autre redirect : <code>http://127.0.0.1:1234/index.php?page=redirect&amp;site=127.0.0.1</code> on obtient le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Un attaquant peut construite une URL vers l’application qui cause une redirection vers n’importe quel site extérieur.</li>
+<li>Cela signifie qu’un utilisateur peut être induit en erreur par un lien construit sur cette faille, et se retrouver sur un site frauduleux sans s’en rendre compte</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Utiliser des liens directs vers les domaines visés</li>
+<li>Tenir une liste d’URL autorisés coté serveur</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = B9E775A0291FED784A2D9680FCFAD7EDD6B8CDF87648DA647AAF4BBA288BCAB3
+</code></pre>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>header_modif</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="header-modification">Header modification</h1>
+<p>Pour exploiter cette faille, nous avons du en regrouper deux : La <strong>referer-dependent response</strong> et le <strong>user-agent switch</strong>. Toutes les deux reposent sur une modification des headers de requête pour tromper la cible.</p>
+<h1 id="reproduction">Reproduction</h1>
+<ol>
+<li>Cliquer sur le copyright en bas de homepage pour arriver sur la page des albatros</li>
+<li>Inspecter le code source et remarquer deux commentaires étranges : <strong>Let’s use this browser : “ft_bornToSec”. It will help you a lot</strong> et <strong>You must come from : <a href="https://www.nsa.gov/">https://www.nsa.gov/</a></strong></li>
+<li>Suite au second commentaire, on modifie le <strong>Referer</strong> de la requête en <code>https://www.nsa.gov/</code> et la page nous dit que l’on a fait la moitié du travail.</li>
+<li>On modifie donc maintenant notre <strong>user-agent</strong> en <code>ft_bornToSec</code> pour finalement obtenir le flag</li>
+</ol>
+<h1 id="risques">Risques</h1>
+<ul>
+<li>Broken access control si le header <strong>referer</strong> fait partie de la logique de contrôle</li>
+<li>Certaines injections de code peuvent se faire par un changement de user-agent</li>
+</ul>
+<h1 id="fix">Fix</h1>
+<ul>
+<li>Ne pas utiliser ce header dans une logique d’autorisation</li>
+<li>Ajouter une <strong>Referrer policy</strong> au serveur. La valeur no-referrer permet par exemple de le désactiver</li>
+<li>On peut aussi mettre No-referrer dans les balises <code>&lt;meta&gt;</code></li>
+<li>Les headers de protection contre les XSS peuvent empêcher des injections depuis le user-agent</li>
+</ul>
+<h1 id="section"></h1>
+<pre><code>flag = f2a29020ef3132e01dd61df97fd33ec8d7fcd1388cc9601e7db691d17d4d6188
+</code></pre>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Referer_header:_privacy_and_security_concerns">Referer header</a><br>
+<a href="https://miloserdov.org/?p=5346">User-agent</a></p>
+</div>
+</body>
+
+</html>
